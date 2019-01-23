@@ -77,7 +77,7 @@ class QueryHelper
      */
     public static function prepareTableName(string $table): string
     {
-        if (!in_array($table, self::$knownTables)) {
+        if (!in_array($table, self::$knownTables, true)) {
             throw new DatabaseException('Table is not in the known tables list.');
         }
 
@@ -105,7 +105,7 @@ class QueryHelper
     /**
      * @param string $table
      */
-    public static function addKnownTableName(string $table)
+    public static function addKnownTableName(string $table): void
     {
         if (!in_array($table, self::$knownTables)) {
             self::$knownTables[] = $table;
