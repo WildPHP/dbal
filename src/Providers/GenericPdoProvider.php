@@ -25,7 +25,7 @@ abstract class GenericPdoProvider implements ProviderInterface
     /**
      * @var array
      */
-    protected $knownTables = ['users', 'channels', 'policies'];
+    protected $knownTables = [];
 
     /**
      * @param SelectQuery $query
