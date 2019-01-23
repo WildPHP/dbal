@@ -1,0 +1,16 @@
+{
+    "name": "wildphp/dbal",
+    "description": "Tiny database abstraction layer",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rick Kerkhof",
+            "email": "rick.2889@gmail.com"
+        }
+    ],
+    "require": {}
+}
