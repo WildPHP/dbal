@@ -107,7 +107,7 @@ class QueryHelper
      */
     public static function addKnownTableName(string $table): void
     {
-        if (!in_array($table, self::$knownTables)) {
+        if (!in_array($table, self::$knownTables, true)) {
             self::$knownTables[] = $table;
         }
     }
