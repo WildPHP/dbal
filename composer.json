@@ -6,6 +6,11 @@
         "phpunit/phpunit": "^7.5"
     },
     "license": "MIT",
+    "autoload": {
+      "psr-4": {
+        "\\WildPHP\\Dbal\\": "src/"
+      }
+    },
     "authors": [
         {
             "name": "Rick Kerkhof",
