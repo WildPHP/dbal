@@ -17,5 +17,7 @@
             "email": "rick.2889@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "ext-pdo": "*"
+    }
 }
