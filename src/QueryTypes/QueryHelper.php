@@ -8,9 +8,12 @@
 
 namespace WildPHP\Database\QueryTypes;
 
-
 use WildPHP\Database\DatabaseException;
 
+/**
+ * Class QueryHelper
+ * @package WildPHP\Database\QueryTypes
+ */
 class QueryHelper
 {
     /**

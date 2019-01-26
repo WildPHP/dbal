@@ -8,7 +8,10 @@
 
 namespace WildPHP\Database\QueryTypes;
 
-
+/**
+ * Class ExistsQuery
+ * @package WildPHP\Database\QueryTypes
+ */
 class ExistsQuery implements QueryInterface
 {
     /**

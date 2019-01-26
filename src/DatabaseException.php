@@ -8,7 +8,10 @@
 
 namespace WildPHP\Database;
 
-
+/**
+ * Class DatabaseException
+ * @package WildPHP\Database
+ */
 class DatabaseException extends \Exception
 {
 

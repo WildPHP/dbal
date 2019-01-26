@@ -8,7 +8,10 @@
 
 namespace WildPHP\Database\QueryTypes;
 
-
+/**
+ * Class UpdateQuery
+ * @package WildPHP\Database\QueryTypes
+ */
 class UpdateQuery implements QueryInterface
 {
     /**

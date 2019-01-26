@@ -11,6 +11,10 @@ namespace WildPHP\Database\Providers;
 use PDO;
 use WildPHP\Database\DatabaseException;
 
+/**
+ * Class SQLiteProvider
+ * @package WildPHP\Database\Providers
+ */
 class SQLiteProvider extends GenericPdoProvider
 {
     /**

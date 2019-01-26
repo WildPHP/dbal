@@ -8,7 +8,10 @@
 
 namespace WildPHP\Database\QueryTypes;
 
-
+/**
+ * Class QueryResult
+ * @package WildPHP\Database\QueryTypes
+ */
 class QueryResult
 {
 

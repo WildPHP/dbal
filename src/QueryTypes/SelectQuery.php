@@ -8,7 +8,10 @@
 
 namespace WildPHP\Database\QueryTypes;
 
-
+/**
+ * Class SelectQuery
+ * @package WildPHP\Database\QueryTypes
+ */
 class SelectQuery implements QueryInterface
 {
     /**

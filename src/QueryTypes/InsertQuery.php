@@ -8,7 +8,10 @@
 
 namespace WildPHP\Database\QueryTypes;
 
-
+/**
+ * Class InsertQuery
+ * @package WildPHP\Database\QueryTypes
+ */
 class InsertQuery implements QueryInterface
 {
     /**

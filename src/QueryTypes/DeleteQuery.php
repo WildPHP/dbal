@@ -8,7 +8,10 @@
 
 namespace WildPHP\Database\QueryTypes;
 
-
+/**
+ * Class DeleteQuery
+ * @package WildPHP\Database\QueryTypes
+ */
 class DeleteQuery implements QueryInterface
 {
     /**

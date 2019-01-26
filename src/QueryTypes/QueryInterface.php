@@ -8,7 +8,10 @@
 
 namespace WildPHP\Database\QueryTypes;
 
-
+/**
+ * Interface QueryInterface
+ * @package WildPHP\Database\QueryTypes
+ */
 interface QueryInterface
 {
     /**
