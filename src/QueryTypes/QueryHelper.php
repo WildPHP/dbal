@@ -40,15 +40,16 @@ class QueryHelper
 
     /**
      * @param string $column
+     * @param bool $enforceQuotes
      * @return string
      */
-    public static function prepareColumnName(string $column): string
+    public static function prepareColumnName(string $column, bool $enforceQuotes = false): string
     {
-        if (preg_match('/^\".+\"$/', $column) === 0) {
+        if (!$enforceQuotes && !strpos($column, '"')) {
             return $column;
         }
 
-        return '"' . $column . '"';
+        return '"' . addcslashes($column, '"') . '"';
 
     }
 
