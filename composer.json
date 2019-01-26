@@ -8,7 +8,7 @@
     "license": "MIT",
     "autoload": {
       "psr-4": {
-        "\\WildPHP\\Dbal\\": "src/"
+        "WildPHP\\Database\\": "src/"
       }
     },
     "authors": [
@@ -18,6 +18,12 @@
         }
     ],
     "require": {
+      "php": ">=7.1.0",
         "ext-pdo": "*"
+    },
+  "config": {
+    "platform": {
+      "php": "7.1.0"
+    }
     }
 }
