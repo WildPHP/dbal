@@ -15,6 +15,7 @@ class SelectQuery implements QueryInterface
      * @var string
      */
     private $table;
+
     /**
      * @var array
      */
@@ -35,6 +36,15 @@ class SelectQuery implements QueryInterface
      */
     private $limit;
 
+    /**
+     * SelectQuery constructor.
+     * @param string $table
+     * @param array $columns
+     * @param array $where
+     * @param array $joins
+     * @param int $limit
+     * @throws \WildPHP\Database\DatabaseException
+     */
     public function __construct(
         string $table,
         array $columns = [],
@@ -43,27 +53,27 @@ class SelectQuery implements QueryInterface
         int $limit = -1
     )
     {
-        $this->table = $table;
-        $this->where = $where;
-        $this->joins = $joins;
-        $this->columns = $columns;
-        $this->limit = $limit;
+        $this->setTable($table);
+        $this->setWhere($where);
+        $this->setJoins($joins);
+        $this->setColumns($columns);
+        $this->setLimit($limit);
     }
 
     /**
      * @return string
-     * @throws \WildPHP\Database\DatabaseException
      */
     public function toString(): string
     {
-        $limit = $this->getLimit() > 0 ? 'LIMIT ' . $this->getLimit() : '';
+        $limitSubQuery = $this->getLimit() > 0 ? 'LIMIT ' . $this->getLimit() : '';
+
         /** @noinspection SyntaxError */
         return sprintf('SELECT %s FROM %s %s %s %s',
-            implode(', ', QueryHelper::prepareColumnNames($this->getColumns())),
-            QueryHelper::prepareTableName($this->getTable()),
-            QueryHelper::prepareJoinStatement($this->getJoins()),
-            QueryHelper::prepareWhereStatement($this->getWhere()),
-            $limit
+            implode(', ', $this->getColumns()),
+            $this->getTable(),
+            $this->getJoins(),
+            $this->getWhere(),
+            $limitSubQuery
         );
     }
 
@@ -96,7 +106,7 @@ class SelectQuery implements QueryInterface
      */
     public function setColumns(array $columns): void
     {
-        $this->columns = $columns;
+        $this->columns = QueryHelper::prepareColumnNames($columns);
     }
 
     /**
@@ -109,10 +119,11 @@ class SelectQuery implements QueryInterface
 
     /**
      * @param string $table
+     * @throws \WildPHP\Database\DatabaseException
      */
     public function setTable(string $table): void
     {
-        $this->table = $table;
+        $this->table = QueryHelper::prepareTableName($table);
     }
 
     /**
@@ -125,10 +136,11 @@ class SelectQuery implements QueryInterface
 
     /**
      * @param array $joins
+     * @throws \WildPHP\Database\DatabaseException
      */
     public function setJoins(array $joins): void
     {
-        $this->joins = $joins;
+        $this->joins = QueryHelper::prepareJoinStatement($joins);
     }
 
     /**
@@ -144,6 +156,6 @@ class SelectQuery implements QueryInterface
      */
     public function setWhere(array $where): void
     {
-        $this->where = $where;
+        $this->where = QueryHelper::prepareWhereStatement($where);
     }
 }

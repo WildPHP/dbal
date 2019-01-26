@@ -15,29 +15,43 @@ class InsertQuery implements QueryInterface
      * @var string
      */
     private $table;
+
     /**
      * @var array
      */
     private $values;
 
+    /**
+     * @var array
+     */
+    private $columns;
+
+    /**
+     * @var string
+     */
+    private $valueQuery = '';
+
+    /**
+     * InsertQuery constructor.
+     * @param string $table
+     * @param array $values
+     * @throws \WildPHP\Database\DatabaseException
+     */
     public function __construct(string $table, array $values)
     {
-        $this->table = $table;
-        $this->values = $values;
+        $this->setTable($table);
+        $this->setValues($values);
     }
 
     /**
      * @return string
-     * @throws \WildPHP\Database\DatabaseException
      */
     public function toString(): string
     {
-        $valueQuery = implode(', ', str_split(str_repeat('?', count($this->getValues()))));
-
         return sprintf('INSERT INTO %s (%s) VALUES (%s)',
-            QueryHelper::prepareTableName($this->getTable()),
-            implode(', ', QueryHelper::prepareColumnNames(array_keys($this->getValues()))),
-            $valueQuery);
+            $this->getTable(),
+            implode(', ', $this->getColumns()),
+            $this->getValueQuery());
     }
 
     /**
@@ -53,7 +67,26 @@ class InsertQuery implements QueryInterface
      */
     public function setValues(array $values): void
     {
+        $this->columns = QueryHelper::prepareColumnNames(array_keys($values));
+        $this->valueQuery = implode(', ', str_split(str_repeat('?', count($this->getValues()))));
+
         $this->values = $values;
+    }
+
+    /**
+     * @return array
+     */
+    public function getColumns(): array
+    {
+        return $this->columns;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValueQuery(): string
+    {
+        return $this->valueQuery;
     }
 
     /**
@@ -66,9 +99,10 @@ class InsertQuery implements QueryInterface
 
     /**
      * @param string $table
+     * @throws \WildPHP\Database\DatabaseException
      */
     public function setTable(string $table): void
     {
-        $this->table = $table;
+        $this->table = QueryHelper::prepareTableName($table);
     }
 }

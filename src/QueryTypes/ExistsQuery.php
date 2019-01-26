@@ -25,12 +25,12 @@ class ExistsQuery implements QueryInterface
      * ExistsQuery constructor.
      * @param string $table
      * @param array $where
+     * @throws \WildPHP\Database\DatabaseException
      */
     public function __construct(string $table, array $where)
     {
-
-        $this->table = $table;
-        $this->where = $where;
+        $this->setTable($table);
+        $this->setWhere($where);
     }
 
     /**
@@ -55,10 +55,11 @@ class ExistsQuery implements QueryInterface
 
     /**
      * @param string $table
+     * @throws \WildPHP\Database\DatabaseException
      */
     public function setTable(string $table): void
     {
-        $this->table = $table;
+        $this->table = QueryHelper::prepareTableName($table);
     }
 
     /**
@@ -74,6 +75,6 @@ class ExistsQuery implements QueryInterface
      */
     public function setWhere(array $where): void
     {
-        $this->where = $where;
+        $this->where = QueryHelper::prepareWhereStatement($where);
     }
 }

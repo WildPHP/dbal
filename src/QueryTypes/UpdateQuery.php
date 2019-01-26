@@ -27,34 +27,34 @@ class UpdateQuery implements QueryInterface
     private $newValues;
 
     /**
+     * @var string[]
+     */
+    private $setQueryPieces = [];
+
+    /**
      * UpdateQuery constructor.
      * @param string $table
      * @param array $where
      * @param array $newValues
+     * @throws \WildPHP\Database\DatabaseException
      */
     public function __construct(string $table, array $where, array $newValues)
     {
-        $this->table = $table;
-        $this->where = $where;
-        $this->newValues = $newValues;
+        $this->setTable($table);
+        $this->setWhere($where);
+        $this->setNewValues($newValues);
     }
 
     /**
      * @return string
-     * @throws \WildPHP\Database\DatabaseException
      */
     public function toString(): string
     {
-        $setQuery = [];
-        foreach ($this->getNewValues() as $column => $value) {
-            $setQuery[] = QueryHelper::prepareColumnName($column) . ' = ?';
-        }
-
         /** @noinspection SyntaxError */
         return sprintf('UPDATE %s SET %s %s',
-            QueryHelper::prepareTableName($this->getTable()),
-            implode(', ', $setQuery),
-            QueryHelper::prepareWhereStatement($this->getWhere())
+            $this->getTable(),
+            implode(', ', $this->setQueryPieces),
+            $this->getWhere()
         );
     }
 
@@ -71,7 +71,21 @@ class UpdateQuery implements QueryInterface
      */
     public function setNewValues(array $newValues): void
     {
+        $setQuery = [];
+        foreach ($this->getNewValues() as $column => $value) {
+            $setQuery[] = QueryHelper::prepareColumnName($column) . ' = ?';
+        }
+        $this->setQueryPieces = $setQuery;
+
         $this->newValues = $newValues;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getSetQueryPieces(): array
+    {
+        return $this->setQueryPieces;
     }
 
     /**
@@ -84,10 +98,11 @@ class UpdateQuery implements QueryInterface
 
     /**
      * @param string $table
+     * @throws \WildPHP\Database\DatabaseException
      */
     public function setTable(string $table): void
     {
-        $this->table = $table;
+        $this->table = QueryHelper::prepareTableName($table);
     }
 
     /**
@@ -103,6 +118,6 @@ class UpdateQuery implements QueryInterface
      */
     public function setWhere(array $where): void
     {
-        $this->where = $where;
+        $this->where = QueryHelper::prepareWhereStatement($where);
     }
 }

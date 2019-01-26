@@ -24,23 +24,23 @@ class DeleteQuery implements QueryInterface
      * DeleteQuery constructor.
      * @param string $table
      * @param array $where
+     * @throws \WildPHP\Database\DatabaseException
      */
     public function __construct(string $table, array $where)
     {
-        $this->table = $table;
-        $this->where = $where;
+        $this->setTable($table);
+        $this->setWhere($where);
     }
 
     /**
      * @return string
-     * @throws \WildPHP\Database\DatabaseException
      */
     public function toString(): string
     {
         /** @noinspection SyntaxError */
         return sprintf('DELETE FROM %s %s',
-            QueryHelper::prepareTableName($this->getTable()),
-            QueryHelper::prepareWhereStatement($this->getWhere())
+            $this->getTable(),
+            $this->getWhere()
         );
     }
 
@@ -54,10 +54,11 @@ class DeleteQuery implements QueryInterface
 
     /**
      * @param string $table
+     * @throws \WildPHP\Database\DatabaseException
      */
     public function setTable(string $table): void
     {
-        $this->table = $table;
+        $this->table = QueryHelper::prepareTableName($table);
     }
 
     /**
@@ -73,6 +74,6 @@ class DeleteQuery implements QueryInterface
      */
     public function setWhere(array $where): void
     {
-        $this->where = $where;
+        $this->where = QueryHelper::prepareWhereStatement($where);
     }
 }

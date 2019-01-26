@@ -15,6 +15,10 @@ use WildPHP\Database\QueryTypes\InsertQuery;
 use WildPHP\Database\QueryTypes\SelectQuery;
 use WildPHP\Database\QueryTypes\UpdateQuery;
 
+/**
+ * Class GenericPdoProvider
+ * @package WildPHP\Database\Providers
+ */
 abstract class GenericPdoProvider implements ProviderInterface
 {
     /**
@@ -30,7 +34,6 @@ abstract class GenericPdoProvider implements ProviderInterface
     /**
      * @param SelectQuery $query
      * @return null|array
-     * @throws DatabaseException
      */
     public function selectFirst(SelectQuery $query): ?array
     {
@@ -41,7 +44,6 @@ abstract class GenericPdoProvider implements ProviderInterface
     /**
      * @param SelectQuery $query
      * @return array
-     * @throws DatabaseException
      */
     public function select(SelectQuery $query): array
     {
@@ -66,7 +68,6 @@ abstract class GenericPdoProvider implements ProviderInterface
     /**
      * @param UpdateQuery $query
      * @return int Number of affected rows
-     * @throws DatabaseException
      */
     public function update(UpdateQuery $query): int
     {
@@ -79,7 +80,6 @@ abstract class GenericPdoProvider implements ProviderInterface
     /**
      * @param InsertQuery $query
      * @return string
-     * @throws DatabaseException
      */
     public function insert(InsertQuery $query): string
     {
@@ -92,7 +92,6 @@ abstract class GenericPdoProvider implements ProviderInterface
     /**
      * @param DeleteQuery $query
      * @return int Number of affected rows
-     * @throws DatabaseException
      */
     public function delete(DeleteQuery $query): int
     {
